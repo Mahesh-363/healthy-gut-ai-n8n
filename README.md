@@ -91,14 +91,14 @@ x-goog-api-key: {{ $credentials.myGoogleApi.apiKey }}
 - Prompt template
 - User topic
 
-### Step 4 — Extract Raw Article Text
+## Step 4 — Extract Raw Article Text
 
 Text is retrieved from:
 
 json.candidates[0].content.parts[0].text
 
 
-### Step 5 — Final JavaScript Node Output
+## Step 5 — Final JavaScript Node Output
 
 Expected output:
 
