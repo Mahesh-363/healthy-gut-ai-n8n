@@ -61,19 +61,19 @@ Your .env.example is for documentation only.
 
 ## 🤖 Workflow Breakdown
 
-Step 1 — Input Node
+## Step 1 — Input Node
 
 User enters a topic:
 
 topic = "Inflammatory Bowel Disease"
 
-Step 2 — Prompt Injection
+## Step 2 — Prompt Injection
 
 Topic is inserted into Prompt 1 and Prompt 2.
 
 These templates define structure, SEO rules, tone, and medical accuracy guidelines.
 
-Step 3 — Gemini API Call (HTTP Request)
+## Step 3 — Gemini API Call (HTTP Request)
 
 POST request with:
 
@@ -108,7 +108,7 @@ json
 }
 
 
-Step 6 — Save Article Manually
+## Step 6 — Save Article Manually
 
 Paste the final generated article into:
 
@@ -117,13 +117,13 @@ Paste the final generated article into:
 
 Name files like:
 
-ibs-article.md
+-ibs-article.md
 
-ibd-article.md
+-ibd-article.md
 
-crohns-disease-article.md
+-crohns-disease-article.md
 
-ulcerative-colitis-article.md
+-ulcerative-colitis-article.md
 
 ## 🧩 Prompt Engineering
 
@@ -159,13 +159,13 @@ Together they guarantee medical accuracy + SEO optimization.
 
 Inside /examples/:
 
-IBS long-form article
+-IBS long-form article
 
-IBD long-form article
+-IBD long-form article
 
-Crohn’s Disease long-form article
+-Crohn’s Disease long-form article
 
-Ulcerative Colitis long-form article
+-Ulcerative Colitis long-form article
 
 Each includes:
 
