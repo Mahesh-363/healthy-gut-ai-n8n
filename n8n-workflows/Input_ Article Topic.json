@@ -1,0 +1,206 @@
+{
+  "name": "Input: Article Topic",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -128,
+        -192
+      ],
+      "id": "16aa6d3a-a7b7-4cca-9f4b-386104f5e4db",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ab78f9b4-6ee6-4a3a-88ed-7d2b253035ad",
+              "name": "topic",
+              "value": "Ulcerative Colitis — causes, symptoms, diagnosis, treatment options, diet, and when to see a doctor",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        48,
+        -192
+      ],
+      "id": "622cc0c1-53c6-4bc2-9c09-e5822bd22ed5",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=REPLACE_ME,
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"contents\": [\n    {\n      \"parts\": [\n        {\n          \"text\": \"Here is your article on {{ $json.topic }}:\"\n        }\n      ]\n    }\n  ]\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        384,
+        -192
+      ],
+      "id": "2962774d-3c9b-40a2-ad8f-6a1e2b8a0a6a",
+      "name": "HTTP Request",
+      "retryOnFail": true,
+      "maxTries": 5,
+      "waitBetweenTries": 2000
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ef79d35f-f1d1-43bd-a2c4-d3475397f428",
+              "name": "contents",
+              "value": "=[   {     \"parts\": [       {         \"text\": \"Here is your article on {{ $json.topic }}:\"       }     ]   } ]",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        -192
+      ],
+      "id": "df2c7a41-010e-42e8-9284-c4cd0f6a1805",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "af3a64dc-180a-4ba5-8ccf-9b9613d4a4cb",
+              "name": "article",
+              "value": "={{ $('HTTP Request').item.json.candidates[0].content.parts[0].text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        592,
+        -192
+      ],
+      "id": "1848bbde-2b47-4e5e-b709-53424eef6363",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "jsCode": "return {\n  article: $json.article\n};\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        -192
+      ],
+      "id": "c2abd642-4182-4a17-af8a-e3b3dfb347a1",
+      "name": "Code in JavaScript1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "efab92bb-9553-4216-b35b-0f85ce12ab15",
+  "meta": {
+    "instanceId": "bb247ea0756e81eb6fb7e1d47df786fc188d9412ec9e40e476f8ed4406b2e88c"
+  },
+  "id": "jKkg29exeVWy68tS",
+  "tags": []
+}
