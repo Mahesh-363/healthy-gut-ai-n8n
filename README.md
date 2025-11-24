@@ -178,3 +178,10 @@ Each includes:
 -Medical accuracy
 
 -Markdown formatting
+
+## 🎥 Demo Video (5–10 minutes)
+
+Here is the complete walkthrough video for my assignment:
+
+▶️ **Watch the Video on Google Drive**  
+https://drive.google.com/file/d/1AOCAJUSL-P2M3q8A1a1K8o9DvXy7m74e/view?usp=sharing
